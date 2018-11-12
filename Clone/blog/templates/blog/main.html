@@ -1,0 +1,20 @@
+﻿{% extends "blog/base.html" %}
+
+
+{% block body-block %}
+
+{% for post in post_list %}
+{% if post.published_date %}
+<div class="jumbotron-fluid">
+    <div class="container">
+        <h2><a href="{% url "post_detail" pk=post.pk %}">{{post.title}}</a></h2>
+        <p>{{post.published_date|date:"D M Y"}}</p>
+        <p>{{post.text|safe|truncatechars:40}}</p>
+        <p>There Are <em>{{post.approve_comments.count}}</em> Comments for This Post</p>
+        <hr class="my-4">
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}

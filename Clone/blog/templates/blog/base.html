@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <!-- bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- medium editor-->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <!-- custom css-->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <meta charset="utf-8" />
+
+      <!-- google fonts-->
+      <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Mali" rel="stylesheet">
+      <!--
+        font-family: 'Mali', cursive;
+        font-family: 'Indie Flower', cursive;
+      -->
+    <title></title>
+</head>
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav justify-content-end">
+                <a class="navbar-brand" href="{% url 'main' %}">Home</a>
+                <a class="nav-item nav-link justify-content-end" href="{% url 'about'%}">About</a>
+                <a class="nav-item nav-link" href="https://www.github.com">GITHUB</a>
+               
+            </div>
+            <ul class="nav justify-content-end">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'post_create' %}">New Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout'%}?next=/">Log out</a>
+                </li>
+                <li class="nav-item linked">
+                    <a class="nav-link" >Welcome: {{ user.username }}</a>
+                </li>
+                    {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-user">LOGIN</span></a>
+                </li>
+                    {% endif %}
+                </ul>
+                    
+</div>
+    </nav>
+
+    <div class="jumbotron">
+        {% block body-block %}
+        {% endblock %}
+        </div>
+
+        <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+
+</body>
+</html>

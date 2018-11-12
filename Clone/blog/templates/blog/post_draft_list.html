@@ -1,0 +1,15 @@
+﻿{% extends "blog/base.html" %}
+{% block body-block %}
+
+<h1>Here is the list of all drafts:</h1>
+<p>There are <em>{{draft_list.count}}</em> drafts in the moment</p><!--  Don't know why :/  -->
+{% for draft in draft_list %}
+{% if not draft.published_date %}
+{{draft.text|safe}}
+<a class="btn btn-primary" href="{% url 'post_publish' pk=draft.pk %}">Publish</a>
+<a class="btn btn-danger" href="{% url 'post_delete' pk=draft.pk %}">Delete</a>
+{% endif %}
+{% endfor %}
+
+
+{% endblock %}
